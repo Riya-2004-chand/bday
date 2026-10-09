@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Ma! ❤️</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&display=swap');
+    .font-cursive { font-family: 'Dancing Script', cursive; }
+    body { font-family: 'Poppins', sans-serif; }
+
+    /* Animated gradient background */
+    body {
+      background: linear-gradient(120deg, #ffe4e6, #fbcfe8, #fde7f3, #ede9fe, #fef3c7, #ffe4e6);
+      background-size: 300% 300%;
+      animation: bgShift 18s ease infinite;
+    }
+    @keyframes bgShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Soft glowing colour blobs */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.75) 0, transparent 25%),
+        radial-gradient(circle at 85% 25%, rgba(253,224,71,.35) 0, transparent 22%),
+        radial-gradient(circle at 75% 85%, rgba(244,114,182,.35) 0, transparent 28%),
+        radial-gradient(circle at 20% 80%, rgba(167,139,250,.30) 0, transparent 25%);
+      animation: drift 14s ease-in-out infinite alternate;
+    }
+    @keyframes drift {
+      from { transform: scale(1) translate(0, 0); }
+      to   { transform: scale(1.15) translate(-2%, 3%); }
+    }
+
+    /* Twinkling sparkles */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(2px 2px at 90px 120px, #fff, transparent),
+        radial-gradient(3px 3px at 160px 60px, #fde68a, transparent),
+        radial-gradient(2px 2px at 220px 160px, #fff, transparent);
+      background-size: 250px 200px;
+      animation: twinkleBg 3s ease-in-out infinite alternate;
+    }
+    @keyframes twinkleBg {
+      from { opacity: .35; }
+      to   { opacity: 1; }
+    }
+
+    .heart { position:absolute; bottom:-30px; font-size:20px; animation: floatUp linear forwards; opacity:.6; }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(.8); opacity:.8; }
+      100% { transform: translateY(-110vh) scale(1.3); opacity:0; }
+    }
+
+    /* Typewriter cursor */
+    .cursor::after { content:'|'; animation: blink 1s infinite; }
+    @keyframes blink { 50% { opacity:0; } }
+
+    /* Cake */
+    .cake { position:relative; width:220px; margin:0 auto; padding-top:70px; }
+    .layer { height:55px; border-radius:14px; position:relative; }
+    .layer.top { width:150px; margin:0 auto; background:#f9a8d4; }
+    .layer.bottom { width:220px; background:#fb7185; margin-top:-4px; height:65px; }
+    .layer::before { content:''; position:absolute; top:0; left:0; right:0; height:16px; background:#fff; border-radius:14px 14px 40px 40px; opacity:.9; }
+    .plate { width:260px; height:12px; background:#fecdd3; border-radius:50%; margin:0 auto; }
+    .candles { position:absolute; top:6px; left:0; right:0; display:flex; justify-content:center; gap:26px; }
+    .candle { width:10px; height:38px; background:linear-gradient(#fde68a,#fbbf24); border-radius:3px; position:relative; cursor:pointer; }
+    .flame { position:absolute; top:-22px; left:-3px; width:16px; height:22px; background:radial-gradient(circle at 50% 70%, #fff7ae, #fb923c 70%); border-radius:50% 50% 50% 50% / 60% 60% 40% 40%; animation: flicker .3s infinite alternate; transition: opacity .3s, transform .3s; transform-origin:bottom; }
+    .flame.out { opacity:0; transform:scale(0); }
+    @keyframes flicker { from { transform: scale(1) rotate(-3deg);} to { transform: scale(1.1) rotate(3deg);} }
+    .smoke { position:absolute; top:-30px; left:3px; font-size:14px; opacity:0; }
+    .smoke.show { animation: smoke 1.5s ease-out; }
+    @keyframes smoke { 0%{opacity:.8; transform:translateY(0);} 100%{opacity:0; transform:translateY(-30px);} }
+
+    /* Flip cards */
+    .flip { perspective:800px; height:170px; cursor:pointer; }
+    .flip-inner { position:relative; width:100%; height:100%; transition:transform .7s; transform-style:preserve-3d; }
+    .flip.flipped .flip-inner { transform: rotateY(180deg); }
+    .face { position:absolute; inset:0; backface-visibility:hidden; border-radius:1rem; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1rem; text-align:center; }
+    .back { transform: rotateY(180deg); }
+
+    /* Gifts */
+    .gift { font-size:64px; cursor:pointer; transition: transform .2s; display:inline-block; animation: wiggle 2.5s infinite; }
+    .gift:hover { transform: scale(1.2) rotate(-6deg); }
+    @keyframes wiggle { 0%,90%,100%{transform:rotate(0);} 93%{transform:rotate(-10deg);} 96%{transform:rotate(10deg);} }
+    .pop { animation: pop .5s ease-out; }
+    @keyframes pop { 0%{transform:scale(.3); opacity:0;} 80%{transform:scale(1.1);} 100%{transform:scale(1); opacity:1;} }
+
+    /* Envelope */
+    .envelope { font-size:90px; cursor:pointer; transition:transform .3s; }
+    .envelope:hover { transform: translateY(-6px) scale(1.05); }
+
+    /* Wish stars */
+    .wish-star { animation: twinkle 2s infinite alternate; }
+    @keyframes twinkle { from{opacity:.6; transform:scale(.95);} to{opacity:1; transform:scale(1.05);} }
+  </style>
+</head>
+<body class="text-gray-800 min-h-screen relative overflow-x-hidden">
+
+  <canvas id="confetti" class="fixed inset-0 pointer-events-none z-50"></canvas>
+  <div id="hearts-container" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+  <!-- Music button -->
+  <button id="musicBtn" class="fixed top-4 right-4 z-40 bg-white/90 shadow-lg rounded-full w-12 h-12 text-xl hover:scale-110 transition" title="Play birthday tune">🎵</button>
+
+  <main class="relative z-10 max-w-4xl mx-auto px-4 py-12 flex flex-col items-center gap-14">
+
+    <!-- Hero -->
+    <header class="text-center">
+      <span class="bg-rose-100 text-rose-600 font-semibold text-sm px-4 py-1.5 rounded-full uppercase tracking-wider">Special Celebration</span>
+      <h1 class="font-cursive text-6xl md:text-7xl text-rose-600 mt-4 mb-3">Happy Birthday, Ma ! 🎂</h1>
+      <p id="typewriter" class="text-gray-600 text-lg md:text-xl min-h-[2rem] cursor"></p>
+      <p class="text-xs text-rose-400 mt-3">Psst… scroll slowly, there are surprises hidden everywhere 🤫</p>
+    </header>
+
+    <!-- Main Card -->
+    <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 w-full max-w-2xl border border-rose-100">
+      <div class="relative w-48 h-48 mx-auto mb-8 rounded-full overflow-hidden border-4 border-rose-300 shadow-md bg-rose-100 flex items-center justify-center text-6xl">
+        <img id="momPhoto" src="image-ma2.jpg" alt="Ma" class="absolute inset-0 w-full h-full object-cover cursor-pointer" style="object-position: 50% 20%;" onerror="this.style.display='none'">
+        👩
+      </div>
+      <div class="text-center space-y-4">
+        <h2 class="text-2xl font-semibold text-rose-800">A Message For You ❤️</h2>
+        <p class="text-gray-600 leading-relaxed italic">
+          "Thank you for your infinite love, continuous support, and unmatched patience. You make our home a wonderful place to be. Wishing you a year filled with health, joy, and everything you love!"
+        </p>
+      </div>
+      <div class="mt-8 text-center">
+        <button id="surpriseBtn" onclick="revealSurprise()" class="bg-rose-500 hover:bg-rose-600 text-white font-medium px-6 py-3 rounded-xl shadow-lg transition duration-300 transform hover:scale-105">
+          Click for a Birthday Surprise! ✨
+        </button>
+      </div>
+      <div id="surpriseMessage" class="hidden mt-6 p-6 bg-rose-50 rounded-2xl text-center border border-rose-200">
+        <p class="font-cursive text-3xl text-rose-700 mb-2">You deserve the world! 🎉</p>
+        <p class="text-gray-700">Hope your day is as sweet and wonderful as you are!</p>
+      </div>
+      <p class="text-center text-xs text-gray-400 mt-6">Tip: tap her photo 5 times 😉</p>
+    </div>
+
+    <!-- Cake -->
+    <section class="w-full max-w-2xl text-center">
+      <h3 class="font-cursive text-4xl text-rose-700 mb-2">Make a Wish & Blow the Candles 🕯️</h3>
+      <p class="text-sm text-gray-500 mb-6">Tap each flame — or press the button and actually blow into your microphone!</p>
+      <div class="cake">
+        <div class="candles" id="candles"></div>
+        <div class="layer top"></div>
+        <div class="layer bottom"></div>
+      </div>
+      <div class="plate"></div>
+      <div class="mt-6 flex justify-center gap-3 flex-wrap">
+        <button onclick="startBlow()" class="bg-rose-500 hover:bg-rose-600 text-white px-5 py-2.5 rounded-xl shadow transition hover:scale-105">🎤 Blow with mic</button>
+        <button onclick="relight()" class="bg-white border border-rose-300 text-rose-600 px-5 py-2.5 rounded-xl shadow-sm transition hover:scale-105">🔥 Light again</button>
+      </div>
+      <p id="cakeMsg" class="font-cursive text-3xl text-rose-700 mt-5 min-h-[2.5rem]"></p>
+    </section>
+
+    <!-- Gifts -->
+    <section class="w-full max-w-3xl text-center">
+      <h3 class="font-cursive text-4xl text-rose-700 mb-2">Open Your Gifts 🎁</h3>
+      <p class="text-sm text-gray-500 mb-6">Each box holds a little promise from us.</p>
+      <div id="gifts" class="flex justify-center gap-6 flex-wrap"></div>
+      <div id="giftMsg" class="mt-6 min-h-[4rem]"></div>
+    </section>
+
+    <!-- Reasons (flip cards) -->
+    <section class="w-full max-w-3xl">
+      <h3 class="text-center font-cursive text-4xl text-rose-700 mb-2">Reasons You're the Best</h3>
+      <p class="text-center text-sm text-gray-500 mb-8">Tap a card to flip it 💫</p>
+      <div id="reasons" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- Memory lane -->
+    <section class="w-full max-w-2xl text-center">
+      <h3 class="font-cursive text-4xl text-rose-700 mb-6">Memory Lane 📸</h3>
+      <div class="bg-white rounded-3xl shadow-lg border border-rose-100 p-6">
+        <div id="memoryBox" class="min-h-[110px] flex items-center justify-center text-gray-700 italic text-lg px-4"></div>
+        <button onclick="nextMemory()" class="mt-4 bg-rose-100 hover:bg-rose-200 text-rose-700 px-5 py-2 rounded-xl transition">Next memory →</button>
+      </div>
+    </section>
+
+    <!-- Wish jar -->
+    <section class="w-full max-w-2xl text-center">
+      <h3 class="font-cursive text-4xl text-rose-700 mb-2">Ma's Wish Jar ⭐</h3>
+      <p class="text-sm text-gray-500 mb-4">Write a wish for the year ahead. We'll hang it among the stars.</p>
+      <div class="flex gap-2 justify-center">
+        <input id="wishInput" type="text" maxlength="60" placeholder="I wish for..." class="border border-rose-200 rounded-xl px-4 py-2.5 w-64 focus:outline-none focus:ring-2 focus:ring-rose-300 bg-white">
+        <button onclick="addWish()" class="bg-rose-500 hover:bg-rose-600 text-white px-5 rounded-xl shadow transition hover:scale-105">Add ✨</button>
+      </div>
+      <div id="wishes" class="mt-6 flex flex-wrap justify-center gap-3"></div>
+    </section>
+
+    <!-- Letter -->
+    <section class="w-full max-w-2xl text-center">
+      <h3 class="font-cursive text-4xl text-rose-700 mb-2">One Last Thing… 💌</h3>
+      <div id="envelope" class="envelope" onclick="openLetter()">💌</div>
+      <p id="envHint" class="text-sm text-gray-500">Tap the envelope</p>
+      <div id="letter" class="hidden mt-6 bg-white rounded-3xl shadow-xl border border-rose-100 p-8 text-left pop">
+        <p class="font-cursive text-3xl text-rose-700 mb-3">Dear Ma,</p>
+        <p id="letterText" class="text-gray-700 leading-relaxed whitespace-pre-line"></p>
+        <p class="font-cursive text-3xl text-rose-700 mt-4 text-right">With all my love ❤️</p>
+      </div>
+    </section>
+
+    <footer class="text-center text-rose-400 text-sm pb-8">Made with love, just for you 💖</footer>
+  </main>
+
+  <script>
+    /* ===== EDIT YOUR PERSONAL TEXT HERE ===== */
+    const CONFIG = {
+      typewriter: "To the most amazing person who makes every day brighter.",
+      gifts: [
+        { icon: "🎁", text: "A whole day where you don't cook or clean. We've got it covered! 🍽️" },
+        { icon: "🎀", text: "A family outing to your favourite place, your choice! 🌸" },
+        { icon: "📦", text: "A promise: one long chat with you every week, no phones. 📵" },
+        { icon: "🧧", text: "A coupon for unlimited hugs, valid forever. 🤗" }
+      ],
+      reasons: [
+        { icon: "🍲", title: "Best Chef", front: "Nobody cooks food filled with as much love as you do.", back: "Even the simplest dal tastes like a feast when you make it! 😋" },
+        { icon: "💖", title: "Endless Love", front: "Your kindness and care guide us through everything.", back: "You love us even on our worst days. Thank you ❤️" },
+        { icon: "🌟", title: "Always Supportive", front: "Thank you for always standing by us no matter what.", back: "Every win of mine has your name on it. 🏆" }
+      ],
+      memories: [
+        "Remember when you stayed up late just to make sure we'd eaten? 🌙",
+        "The way you always save the best piece for us 🍰",
+        "Your 'call me when you reach' text, every single time 📱",
+        "That laugh of yours that fills the whole house 😄",
+        "Every festival, you made our home feel like magic ✨"
+      ],
+      letter: "Thank you for every sacrifice you made quietly, for every time you put us first, and for being our home wherever we go.\n\nI may not say it enough, but I love you more than words can ever explain. May this year bring you all the happiness you have given us.\n\nHappy Birthday, Ma. You are my whole world."
+    };
+
+    /* ===== Floating hearts ===== */
+    function createHeart() {
+      const c = document.getElementById('hearts-container');
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.textContent = ['❤️','💖','🌸','✨'][Math.floor(Math.random()*4)];
+      h.style.left = Math.random()*100 + 'vw';
+      const d = Math.random()*4 + 6;
+      h.style.animationDuration = d + 's';
+      c.appendChild(h);
+      setTimeout(() => h.remove(), d*1000);
+    }
+    setInterval(createHeart, 600);
+
+    /* ===== Typewriter ===== */
+    (function(){
+      const el = document.getElementById('typewriter');
+      let i = 0;
+      (function type(){
+        if (i <= CONFIG.typewriter.length) { el.textContent = CONFIG.typewriter.slice(0, i++); setTimeout(type, 55); }
+      })();
+    })();
+
+    /* ===== Confetti ===== */
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let pieces = [], running = false;
+    function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+    addEventListener('resize', resize); resize();
+
+    function burst(n = 140, x = innerWidth/2, y = innerHeight/3) {
+      const colors = ['#fb7185','#f9a8d4','#fbbf24','#34d399','#60a5fa','#a78bfa'];
+      for (let i = 0; i < n; i++) {
+        pieces.push({
+          x, y,
+          vx: (Math.random()-.5)*14, vy: Math.random()*-12 - 3,
+          s: Math.random()*8 + 4, r: Math.random()*6, vr: (Math.random()-.5)*.4,
+          c: colors[Math.floor(Math.random()*colors.length)], life: 220
+        });
+      }
+      if (!running) { running = true; loop(); }
+    }
+    function loop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pieces.forEach(p => {
+        p.vy += .25; p.x += p.vx; p.y += p.vy; p.r += p.vr; p.life--;
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r);
+        ctx.fillStyle = p.c; ctx.globalAlpha = Math.max(p.life/220, 0);
+        ctx.fillRect(-p.s/2, -p.s/2, p.s, p.s*.6); ctx.restore();
+      });
+      pieces = pieces.filter(p => p.life > 0 && p.y < canvas.height + 20);
+      if (pieces.length) requestAnimationFrame(loop); else { running = false; ctx.clearRect(0,0,canvas.width,canvas.height); }
+    }
+    function bigShow() { [0,300,600,900].forEach(t => setTimeout(() => burst(120, Math.random()*innerWidth, Math.random()*innerHeight/2), t)); }
+
+    /* ===== Surprise button ===== */
+    function revealSurprise() {
+      document.getElementById('surpriseMessage').classList.remove('hidden');
+      document.getElementById('surpriseMessage').classList.add('pop');
+      document.getElementById('surpriseBtn').classList.add('hidden');
+      bigShow();
+    }
+
+    /* ===== Easter egg: tap photo 5 times ===== */
+    let taps = 0;
+    document.getElementById('momPhoto').addEventListener('click', () => {
+      if (++taps >= 5) {
+        taps = 0; bigShow();
+        const m = document.getElementById('surpriseMessage');
+        m.classList.remove('hidden');
+        m.innerHTML = '<p class="font-cursive text-3xl text-rose-700">You found the secret! 🕵️‍♀️</p><p class="text-gray-700">You are the best mom in the whole world! 🌍❤️</p>';
+      }
+    });
+
+    /* ===== Cake ===== */
+    const NUM_CANDLES = 5;
+    const candlesEl = document.getElementById('candles');
+    for (let i = 0; i < NUM_CANDLES; i++) {
+      const c = document.createElement('div');
+      c.className = 'candle';
+      c.innerHTML = '<div class="flame"></div><div class="smoke">💨</div>';
+      c.onclick = () => blowOut(c);
+      candlesEl.appendChild(c);
+    }
+    function blowOut(c) {
+      const f = c.querySelector('.flame');
+      if (f.classList.contains('out')) return;
+      f.classList.add('out');
+      const s = c.querySelector('.smoke'); s.classList.remove('show'); void s.offsetWidth; s.classList.add('show');
+      if (document.querySelectorAll('.flame:not(.out)').length === 0) {
+        document.getElementById('cakeMsg').textContent = 'Your wish will come true! 🌠';
+        bigShow();
+      }
+    }
+    function relight() {
+      document.querySelectorAll('.flame').forEach(f => f.classList.remove('out'));
+      document.getElementById('cakeMsg').textContent = '';
+    }
+    async function startBlow() {
+      const msg = document.getElementById('cakeMsg');
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const ac = new (window.AudioContext || window.webkitAudioContext)();
+        const analyser = ac.createAnalyser(); analyser.fftSize = 512;
+        ac.createMediaStreamSource(stream).connect(analyser);
+        const data = new Uint8Array(analyser.frequencyBinCount);
+        msg.textContent = 'Go on, blow! 🌬️';
+        const started = Date.now();
+        (function check(){
+          analyser.getByteFrequencyData(data);
+          const avg = data.reduce((a,b) => a+b, 0) / data.length;
+          if (avg > 40) {
+            const lit = [...document.querySelectorAll('.candle')].filter(c => !c.querySelector('.flame').classList.contains('out'));
+            if (lit.length) blowOut(lit[0]);
+          }
+          const allOut = document.querySelectorAll('.flame:not(.out)').length === 0;
+          if (allOut || Date.now() - started > 20000) { stream.getTracks().forEach(t => t.stop()); ac.close(); return; }
+          requestAnimationFrame(check);
+        })();
+      } catch (e) { msg.textContent = 'No mic? No problem. Just tap the flames! 👆'; }
+    }
+
+    /* ===== Gifts ===== */
+    const giftsEl = document.getElementById('gifts');
+    CONFIG.gifts.forEach(g => {
+      const d = document.createElement('div');
+      d.className = 'gift'; d.textContent = g.icon;
+      d.onclick = () => {
+        if (d.dataset.open) return;
+        d.dataset.open = 1; d.textContent = '🎉';
+        const box = document.getElementById('giftMsg');
+        box.innerHTML = '<div class="pop inline-block bg-white border border-rose-200 rounded-2xl shadow px-6 py-4 text-rose-800 font-medium">' + g.text + '</div>';
+        burst(70, d.getBoundingClientRect().left + 30, d.getBoundingClientRect().top);
+      };
+      giftsEl.appendChild(d);
+    });
+
+    /* ===== Reasons flip cards ===== */
+    const reasonsEl = document.getElementById('reasons');
+    CONFIG.reasons.forEach(r => {
+      const w = document.createElement('div');
+      w.className = 'flip';
+      w.innerHTML =
+        '<div class="flip-inner">' +
+          '<div class="face bg-white border border-rose-100 shadow-sm"><div class="text-3xl mb-2">' + r.icon + '</div><h4 class="font-semibold text-rose-800 mb-1">' + r.title + '</h4><p class="text-sm text-gray-600">' + r.front + '</p></div>' +
+          '<div class="face back bg-rose-500 text-white shadow-md"><p class="font-medium">' + r.back + '</p></div>' +
+        '</div>';
+      w.onclick = () => w.classList.toggle('flipped');
+      reasonsEl.appendChild(w);
+    });
+
+    /* ===== Memory lane ===== */
+    let mi = -1;
+    function nextMemory() {
+      mi = (mi + 1) % CONFIG.memories.length;
+      const b = document.getElementById('memoryBox');
+      b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
+      b.textContent = CONFIG.memories[mi];
+    }
+    nextMemory();
+
+    /* ===== Wish jar ===== */
+    function addWish() {
+      const inp = document.getElementById('wishInput');
+      const v = inp.value.trim();
+      if (!v) return;
+      const s = document.createElement('div');
+      s.className = 'wish-star pop bg-white border border-amber-200 text-amber-700 rounded-full px-4 py-2 shadow-sm text-sm';
+      s.textContent = '⭐ ' + v;
+      document.getElementById('wishes').appendChild(s);
+      inp.value = '';
+      burst(40, innerWidth/2, innerHeight/2);
+    }
+    document.getElementById('wishInput').addEventListener('keydown', e => { if (e.key === 'Enter') addWish(); });
+
+    /* ===== Letter ===== */
+    function openLetter() {
+      const l = document.getElementById('letter');
+      if (!l.classList.contains('hidden')) return;
+      document.getElementById('envelope').textContent = '💖';
+      document.getElementById('envHint').classList.add('hidden');
+      document.getElementById('letterText').textContent = CONFIG.letter;
+      l.classList.remove('hidden');
+      l.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      bigShow();
+    }
+
+    /* ===== Happy Birthday tune (Web Audio, no file needed) ===== */
+    const tune = [[392,.75],[392,.25],[440,1],[392,1],[523.25,1],[493.88,2],
+                  [392,.75],[392,.25],[440,1],[392,1],[587.33,1],[523.25,2],
+                  [392,.75],[392,.25],[783.99,1],[659.25,1],[523.25,1],[493.88,1],[440,2],
+                  [698.46,.75],[698.46,.25],[659.25,1],[523.25,1],[587.33,1],[523.25,2]];
+    let playing = false, audioCtx;
+    document.getElementById('musicBtn').onclick = () => {
+      if (playing) return;
+      playing = true;
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      let t = audioCtx.currentTime + .1; const beat = .45;
+      tune.forEach(([f, d]) => {
+        const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        o.type = 'triangle'; o.frequency.value = f;
+        g.gain.setValueAtTime(.0001, t);
+        g.gain.exponentialRampToValueAtTime(.25, t + .03);
+        g.gain.exponentialRampToValueAtTime(.0001, t + d*beat);
+        o.connect(g).connect(audioCtx.destination);
+        o.start(t); o.stop(t + d*beat); t += d*beat;
+      });
+      burst(100);
+      setTimeout(() => { playing = false; audioCtx.close(); }, (t - audioCtx.currentTime) * 1000 + 300);
+    };
+  </script>
+</body>
+</html>
